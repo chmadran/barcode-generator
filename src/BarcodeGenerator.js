@@ -5,7 +5,7 @@ import './BarcodeGenerator.css';
 const BarcodeGenerator = () => {
   const [uniqueId, setUniqueId] = useState('');
   const [locationId, setLocationId] = useState('');
-  const [year, setYear] = useState(new Date().getFullYear().toString());
+  const [year] = useState(new Date().getFullYear().toString());
 
   const generateBarcode = useCallback(() => {
     const barcodeData = `${uniqueId}|${locationId}|${year}`;
@@ -40,7 +40,7 @@ const BarcodeGenerator = () => {
         
         <div className="form-container">
           <div className="input-group">
-            <label className="label">Unique ID</label>
+            <label className="label">Numéro Bénéficiaire</label>
             <input
               type="text"
               value={uniqueId}
@@ -51,7 +51,7 @@ const BarcodeGenerator = () => {
           </div>
 
           <div className="input-group">
-            <label className="label">Location ID</label>
+            <label className="label">Identifiant Antenne</label>
             <input
               type="text"
               value={locationId}
@@ -62,15 +62,12 @@ const BarcodeGenerator = () => {
           </div>
 
           <div className="input-group">
-            <label className="label">Year</label>
+            <label className="label">Année</label>
             <input
-              type="number"
+              type="text"
               value={year}
-              onChange={(e) => setYear(e.target.value)}
-              placeholder="Enter Year"
-              min="1900"
-              max="2100"
-              className="input"
+              readOnly
+              className="input readonly"
             />
           </div>
         </div>
