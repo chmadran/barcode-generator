@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import JsBarcode from 'jsbarcode';
+import './BarcodeGenerator.css';
 
 const BarcodeGenerator = () => {
   const [uniqueId, setUniqueId] = useState('');
   const [locationId, setLocationId] = useState('');
   const [year, setYear] = useState(new Date().getFullYear().toString());
-  
+
   const generateBarcode = useCallback(() => {
     const barcodeData = `${uniqueId}|${locationId}|${year}`;
-    
     try {
       JsBarcode("#barcode", barcodeData, {
         format: "CODE128",
@@ -25,78 +25,59 @@ const BarcodeGenerator = () => {
     } catch (error) {
       console.error("Error generating barcode:", error);
     }
-  }, [uniqueId, locationId, year]); // Include all dependencies used in the function
+  }, [uniqueId, locationId, year]);
 
   useEffect(() => {
     if (uniqueId && locationId && year) {
       generateBarcode();
     }
-  }, [uniqueId, locationId, year, generateBarcode]); // Include all dependencies
+  }, [uniqueId, locationId, year, generateBarcode]);
 
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-      <div className="w-full max-w-3xl mx-auto p-8">
-        <div className="bg-white rounded-xl shadow-lg p-8">
-          <h1 className="text-4xl font-bold text-center text-gray-900 mb-12">
-            Barcode Generator
-          </h1>
-          
-          <div className="flex flex-col items-center space-y-8 mb-12">
-            <div className="w-full max-w-md">
-              <label className="block text-xl font-medium text-gray-700 text-center mb-3">
-                Unique ID
-              </label>
-              <input
-                type="text"
-                value={uniqueId}
-                onChange={(e) => setUniqueId(e.target.value)}
-                placeholder="Enter Unique ID"
-                className="w-full p-4 text-xl border rounded-lg text-center"
-              />
-            </div>
-            
-            <div className="w-full max-w-md">
-              <label className="block text-xl font-medium text-gray-700 text-center mb-3">
-                Location ID
-              </label>
-              <input
-                type="text"
-                value={locationId}
-                onChange={(e) => setLocationId(e.target.value)}
-                placeholder="Enter Location ID"
-                className="w-full p-4 text-xl border rounded-lg text-center"
-              />
-            </div>
-            
-            <div className="w-full max-w-md">
-              <label className="block text-xl font-medium text-gray-700 text-center mb-3">
-                Year
-              </label>
-              <input
-                type="number"
-                value={year}
-                onChange={(e) => setYear(e.target.value)}
-                placeholder="Enter Year"
-                min="1900"
-                max="2100"
-                className="w-full p-4 text-xl border rounded-lg text-center"
-              />
-            </div>
+    <div className="container">
+      <div className="barcode-generator">
+        <h1 className="title">Barcode Generator</h1>
+        
+        <div className="form-container">
+          <div className="input-group">
+            <label className="label">Unique ID</label>
+            <input
+              type="text"
+              value={uniqueId}
+              onChange={(e) => setUniqueId(e.target.value)}
+              placeholder="Enter Unique ID"
+              className="input"
+            />
           </div>
 
-          <div className="flex justify-center mb-8">
-            <button 
-              onClick={generateBarcode}
-              className="bg-blue-600 text-white text-xl py-4 px-12 rounded-lg hover:bg-blue-700 transition-colors duration-200"
-            >
-              Generate Barcode
-            </button>
+          <div className="input-group">
+            <label className="label">Location ID</label>
+            <input
+              type="text"
+              value={locationId}
+              onChange={(e) => setLocationId(e.target.value)}
+              placeholder="Enter Location ID"
+              className="input"
+            />
           </div>
 
-          <div className="flex justify-center">
-            <div className="p-8 bg-white rounded-lg border">
-              <svg id="barcode" className="max-w-full h-auto"></svg>
-            </div>
+          <div className="input-group">
+            <label className="label">Year</label>
+            <input
+              type="number"
+              value={year}
+              onChange={(e) => setYear(e.target.value)}
+              placeholder="Enter Year"
+              min="1900"
+              max="2100"
+              className="input"
+            />
+          </div>
+        </div>
+
+        <div className="barcode-container">
+          <div className="barcode-wrapper">
+            <svg id="barcode" className="barcode"></svg>
           </div>
         </div>
       </div>

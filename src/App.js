@@ -1,4 +1,3 @@
-import './App.css';
 import BarcodeGenerator from './BarcodeGenerator';
 
 function App() {
