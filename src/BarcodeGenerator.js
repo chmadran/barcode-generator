@@ -8,7 +8,7 @@ const BarcodeGenerator = () => {
   const [year] = useState(new Date().getFullYear().toString());
 
   const generateBarcode = useCallback(() => {
-    const barcodeData = `${uniqueId}|${locationId}|${year}`;
+    const barcodeData = `${uniqueId}`;
     try {
       JsBarcode("#barcode", barcodeData, {
         format: "CODE128",
@@ -25,13 +25,13 @@ const BarcodeGenerator = () => {
     } catch (error) {
       console.error("Error generating barcode:", error);
     }
-  }, [uniqueId, locationId, year]);
+  }, [uniqueId]);
 
   useEffect(() => {
-    if (uniqueId && locationId && year) {
+    if (uniqueId) {
       generateBarcode();
     }
-  }, [uniqueId, locationId, year, generateBarcode]);
+  }, [uniqueId, generateBarcode]);
 
   return (
     <div className="container">
@@ -50,7 +50,7 @@ const BarcodeGenerator = () => {
             />
           </div>
 
-          <div className="input-group">
+          {/* <div className="input-group">
             <label className="label">Identifiant Antenne</label>
             <input
               type="text"
@@ -69,7 +69,7 @@ const BarcodeGenerator = () => {
               readOnly
               className="input readonly"
             />
-          </div>
+          </div> */}
         </div>
 
         <div className="barcode-container">
