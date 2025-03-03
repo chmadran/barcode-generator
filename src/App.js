@@ -1,9 +1,11 @@
 import BarcodeGenerator from './BarcodeGenerator';
+import BarcodeLabelPrinter from './BarcodeLabelPrinter';
 
 function App() {
   return (
     <div>
-      <BarcodeGenerator />
+      {/* <BarcodeGenerator /> */}
+      <BarcodeLabelPrinter />
     </div>
   );
 }
